@@ -87,16 +87,16 @@ int OTAport = 8266;
 #define DEVICE_LED_COMMAND_TOPIC            "homeassistant/light/" DEVICE_NAME "_sensor_led/set"
 #define DEVICE_LED_STATE_TOPIC              "homeassistant/light/" DEVICE_NAME "_sensor_led/state"
 
-#define DEVICE_LED_BRIGHTNESS_COMMAND_TOPIC "homeassistant/light/" DEVICE_NAME "_sensor_led/brighness/set"
-#define DEVICE_LED_BRIGHTNESS_STATE_TOPIC   "homeassistant/light/" DEVICE_NAME "_sensor_led/brighness/state"
+#define DEVICE_LED_BRIGHTNESS_COMMAND_TOPIC "homeassistant/light/" DEVICE_NAME "_sensor_led/brightness/set"
+#define DEVICE_LED_BRIGHTNESS_STATE_TOPIC   "homeassistant/light/" DEVICE_NAME "_sensor_led/brightness/state"
 
 #define DEVICE_LED_RGB_COMMAND_TOPIC        "homeassistant/light/" DEVICE_NAME "_sensor_led/rgb/set"
 #define DEVICE_LED_RGB_STATE_TOPIC          "homeassistant/light/" DEVICE_NAME "_sensor_led/rgb/state"
 
 #define DEVICE_LED_DISCOVERY_REGISTER_MESSAGE "{\"name\":\"" DEVICE_FRIENDLY_NAME " LED\",\"brightness\":true,\"flash\":true,\"rgb\":true,\"optomistic\":false,\"qos\":0,"\
 "\"command_topic\":\"homeassistant/light/" DEVICE_NAME "_sensor_led/set\","\
-"\"brightness_command_topic\":\"homeassistant/light/" DEVICE_NAME "_sensor_led/brighness/set\","\
-"\"brightness_state_topic\":\"homeassistant/light/" DEVICE_NAME "_sensor_led/brighness/state\","\
+"\"brightness_command_topic\":\"homeassistant/light/" DEVICE_NAME "_sensor_led/brightness/set\","\
+"\"brightness_state_topic\":\"homeassistant/light/" DEVICE_NAME "_sensor_led/brightness/state\","\
 "\"rgb_command_topic\":\"homeassistant/light/" DEVICE_NAME "_sensor_led/rgb/set\","\
 "\"rgb_state_topic\":\"homeassistant/light/" DEVICE_NAME "_sensor_led/rgb/state\"}"
 
@@ -254,7 +254,7 @@ void sendAllState() {
     sprintf(message_buff, "%d,%d,%d", red, green, blue);
     sendState(DEVICE_LED_RGB_STATE_TOPIC, message_buff);
 
-    // Send LED Brighness value
+    // Send LED Brightness value
     sprintf(message_buff, "%d", brightness);
     sendState(DEVICE_LED_BRIGHTNESS_STATE_TOPIC, message_buff);
 
@@ -328,7 +328,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     } else if(strcmp(topic, DEVICE_LED_BRIGHTNESS_COMMAND_TOPIC)==0){
         brightness = atoi(message);
         configColor(red, green, blue);
-        // Send LED Brighness value
+        // Send LED Brightness value
         sprintf(message_buff, "%d", brightness);
         sendState(DEVICE_LED_BRIGHTNESS_STATE_TOPIC, message_buff);
     } else if(strcmp(topic, DEVICE_LED_RGB_COMMAND_TOPIC)==0){
